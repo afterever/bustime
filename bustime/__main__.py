@@ -1,7 +1,7 @@
 if __name__ == '__main__':
   import argparse
   from os import getenv
-  from stop import StopStatus
+  from .monitor import StopMonitor
 
   BUSTIME_API_KEY = getenv('BUSTIME_API_KEY')
 
@@ -11,6 +11,6 @@ if __name__ == '__main__':
   parser.add_argument('-m', '--max_visits', type=int, default=3)
   args = parser.parse_args()
 
-  stop_status = StopStatus(BUSTIME_API_KEY, args.stop, args.route, args.max_visits)
+  monitor = StopMonitor(BUSTIME_API_KEY, args.stop, args.route, args.max_visits)
 
-  print(stop_status)
+  print(monitor)
