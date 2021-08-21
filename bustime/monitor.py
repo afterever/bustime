@@ -6,7 +6,7 @@ STOP_MONITORING_ENDPOINT = 'http://bustime.mta.info/api/siri/stop-monitoring.jso
 FEET_PER_METER = 3.28084
 FEET_PER_MILE = 5280
 
-class StopStatus(object):
+class StopMonitor(object):
   def __init__(self, api_key, stop_id, route=None, max_visits=3):
     self.api_key = api_key
     self.stop_id = stop_id
@@ -75,7 +75,7 @@ class Visit(object):
     distances = call['Extensions']['Distances']
     self.monitored_stop = call['StopPointName']
     self.stops_away = distances['StopsFromCall']
-    self.distance = round(distances['DistanceFromCall'] * FEET_PER_METER / FEET_PER_MILE, 1)
+    self.distance = round(distances['DistanceFromCall'] * FEET_PER_METER / FEET_PER_MILE, 2)
 
   def __str__(self):
     return ('{} {} stops/{}mi').format(self.route, self.stops_away, self.distance)
