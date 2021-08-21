@@ -75,7 +75,8 @@ class Visit(object):
     distances = call['Extensions']['Distances']
     self.monitored_stop = call['StopPointName']
     self.stops_away = distances['StopsFromCall']
-    self.distance = round(distances['DistanceFromCall'] * FEET_PER_METER / FEET_PER_MILE, 2)
+    self.distance = round(distances['DistanceFromCall'] * FEET_PER_METER / FEET_PER_MILE, 1)
+    self.eta = call['ExpectedArrivalTime']
 
   def __str__(self):
-    return ('{} {} stops/{}mi').format(self.route, self.stops_away, self.distance)
+    return ('{} {} stops/{}mi {}').format(self.route, self.stops_away, self.distance, self.eta)
