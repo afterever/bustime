@@ -8,7 +8,7 @@ setup(
   install_requires = ['requests>=2.0'],
   author = 'Steve Davis',
   author_email = 'steve@celery.club',
-  url = 'https://github.com/celeryclub/bustime',
+  url = 'https://github.com/afterever/bustime',
   download_url = 'https://github.com/afterever/bustime/tarball/0.2.3',
   keywords = 'mta bustime',
 )
