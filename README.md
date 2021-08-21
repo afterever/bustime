@@ -24,3 +24,9 @@ BUSTIME_API_KEY = getenv('BUSTIME_API_KEY')
 monitor = StopMonitor(BUSTIME_API_KEY, '306809', 'b62', 2)
 print(monitor)
 ```
+
+## References
+- http://bt.mta.info/wiki/Developers/OneBusAwayRESTfulAPI
+- http://bt.mta.info/wiki/Developers/SIRIStopMonitoring
+- https://bustime.mta.info/m/index?q=401768
+

@@ -77,6 +77,8 @@ class Visit(object):
     self.stops_away = distances['StopsFromCall']
     self.distance = round(distances['DistanceFromCall'] * FEET_PER_METER / FEET_PER_MILE, 1)
     self.eta = call['ExpectedArrivalTime']
+    self.vehicle = raw_visit['MonitoredVehicleJourney']['VehicleRef']
+
 
   def __str__(self):
-    return ('{} {} stops/{}mi {}').format(self.route, self.stops_away, self.distance, self.eta)
+    return ('{} {} stops/{}mi {} {}').format(self.route, self.stops_away, self.distance, self.eta, self.vehicle)
