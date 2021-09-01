@@ -1,6 +1,8 @@
 import json
 import requests
 import sys
+import datetime
+import math
 
 STOP_MONITORING_ENDPOINT = 'http://bustime.mta.info/api/siri/stop-monitoring.json'
 FEET_PER_METER = 3.28084
@@ -77,8 +79,17 @@ class Visit(object):
     self.stops_away = distances['StopsFromCall']
     self.distance = round(distances['DistanceFromCall'] * FEET_PER_METER / FEET_PER_MILE, 1)
     self.eta = call['ExpectedArrivalTime']
+    eta_time = datetime.datetime.strptime(self.eta, '%Y-%m-%dT%H:%M:%S.%f%z')
+    eta_in_minutes = (eta_time.replace(tzinfo=None) - datetime.datetime.now()).total_seconds() / 60.0
+    self.eta_in_mins = int(math.ceil(eta_in_minutes))
     self.vehicle = raw_visit['MonitoredVehicleJourney']['VehicleRef']
+    # if call['Extensions']['Capacities']['EstimatedPassengerCount'] is not None:
+    if 'Capacities' in call['Extensions']:
+        self.passenger = '[' + str(call['Extensions']['Capacities']['EstimatedPassengerCount']) + ']'
+    else:
+        self.passenger = ''
 
 
   def __str__(self):
-    return ('{} {} stops/{}mi {} {}').format(self.route, self.stops_away, self.distance, self.eta, self.vehicle)
+    return ('{} {}min|{} {}stops/{}mi Vehicle# {} {}').format(self.route, self.eta_in_mins, self.eta[11:19], self.stops_away, self.distance, self.vehicle[-4:], self.passenger)
+    # return ('{} {}min|{} {}stops/{}mi Vehicle# {}').format(self.route, self.eta_in_mins, self.eta[11:19], self.stops_away, self.distance, self.vehicle[-4:])
